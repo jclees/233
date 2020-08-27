@@ -1,48 +1,112 @@
-:star::star::star:
-## win10插件
-win10 TranslucentTB。
+# 代码
+npm包地址：https://github.com/Smile-lrn/face-ca.git
+使用该插件的项目示例地址：https://github.com/Smile-lrn/-npm-faceca-.git
+# faceapi
 
-# 中华资本
- >一些资料
+> 人脸识别
+<!-- 人脸识别 -->
+## 安装
+  ```
+    npm install face-ca --save-dev
+  ```
+## 引入相关文件
+  ```
+  main.js:
+      import face from 'face-ca'
+      face.install(Vue,{
+        msg:'Hellworld'
+        ...参数
+      })
+  ```
+## 使用
+  ```
+  .vue组件直接使用：
+    <template>
+      <div>
+        <face :activename="activeName" :isrest='isRest' @restActive='restactive' @responseFun='responseFun' ></face>
+      </div>
+    </template>
+    activename:控制人脸识别展示还是隐藏
+    restActive：关闭人脸识别页面
+    responseFun：该函数能拿到符合的截图，在该函数中调用接口进行其他数据处理
+  ```
+## 模型加载错误
+   - 资源未加载到
+   - 测试无效这里手动把/node_modules/face-ca/src/assets/文件夹下的数据复制到当目录下/static/
 
-## 主账号
-lijicheng / !3FKccuaf4
+<!-- flexible -->
+## 安装
+```
+npm install flexible --save
+```
+## 引用
+  ```
+  main.js:
+    // 移动端适配
+    import 'lib-flexible/flexible.js'
+  ```
+## vue组件中使用完整代码
+```
+<template>
+  <div>
+    {{ msg }}
+    <face :activename="activeName" :isrest='isRest' @restActive='restactive' @responseFun='responseFun' ></face>
+    <button id="facelogin" @click="faceLogin">人脸登录</button>
+  </div>
+</template>
 
-## 华为云
-https://49.4.79.11
+<script>
+export default {
+  name: 'HelloWorld',
+  data() {
+    return {
+      msg: '',
+      activeName: '',
+      isRest:false
+    };
+  },
+  methods: {
+    // 进入人脸识别页面
+    faceLogin() {
+      this.activeName = 'active';
+    },
+    // 重置插件中的数据
+    restactive(val){
+      this.activeName = val
+      this.isRest = false;
+    },
+    responseFun(data){
+      // 活体检测后的图片
+       console.log(data)
+       setTimeout(()=>{
+         this.isRest = true;
+       },1000)
+    }
+  },
+};
+</script>
 
-## 设计搞地址
-PC：https://lanhuapp.com/url/4OoCd-NG7LU
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped></style>
 
-M：https://lanhuapp.com/url/Ar2zF-zatK4
+```
 
-## PMO系统
-https://pmo.fic:8088/cas  
 
-## git地址
-http://gitlab.fic/fecode/fotic-house-loan-h5 
-http://192.168.4.22:2270/fecode/fotic-house-loan-h5.git
 
-## RAP
-账号 ljcheng ljcheng1109
 
-## OA
-网址 http://www.longwancloud.com/longwanSSM/
 
-账号 tyzq-lijch 123456
 
-## 公司邮箱
-网址 https://qiye.aliyun.com/alimail/auth/login
+## 开发环境测试
+webpack.config.js  -> entry: './src/main.js'
+## 打包
+webpack.config.js  -> entry: './src/lib/index.js'
 
-#### 账号密码
-- lijicheng@sky-demo.com.cn
-- Ljcheng1109
-
-## 1.请假、出差：
-- A.以上需和现场领导沟通好，并提前报备我；
-
-- B.OA提交请假（事假/病假/年假/婚假/产假/丧假/工伤）申请发给我
-
-## 2.月报需在每月最后一天中午12点前发到我的邮箱，有特殊情况在此群@我说明原因～，
-
-我的邮箱号：zhangjie@sky-dome.com.cn
+## 在index.html中使用
+```
+<div id="app">
+    <face></face>
+</div>
+<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+<script src="./dist/face.js" type="module"></script>
+```
+For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
